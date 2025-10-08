@@ -3,7 +3,7 @@ blueprint:
   author: steriku
   description: >
     Campanion Script to the parabolic alarm automation blueprint.
-  source_url: https://github.com/steku/ha_cercadian_alarm/blob/main/blueprint_parabolic_alarm_script.yaml
+  source_url: https://github.com/laurentlbm/ha-sunrise-alarm/blob/main/blueprint_parabolic_alarm_script.yaml
   domain: script
   homeassistant:
     min_version: 2024.9.0
@@ -22,17 +22,17 @@ fields:
     selector:
       color_temp:
         unit: kelvin
-        min: 2500
+        min: 2000
         max: 6500
-    default: 2500
+    default: 2000
     name: Warmest Kelvin
   max_brightness_pct:
-    description: Maximum brightness in percent to reach by the end of the script
+    description: Maximum brightness to reach by the end of the script
     selector:
       number:
         min: 1
-        max: 100
-    default: 80
+        max: 255
+    default: 204
     name: Max brightness
   alarm_length:
     description: >-
@@ -73,11 +73,11 @@ variables:
   steps: "{{ alarm_length * steps_per_minute }}"
   min_brightness: |-
     {% if states(target_light) == 'off' %}
-      3
+      1
     {% else %}
       {{ state_attr(target_light, 'brightness') }}
     {% endif %}
-  max_brightness: "{{ max_brightness_pct * 2.55 }}"
+  max_brightness: "{{ max_brightness_pct }}"
   kelvin_step: "{{ (target_kelvin - start_kelvin) / steps }}"
   bright_step: "{{ (max_brightness - min_brightness) / steps }}"
   start_time: "{{ as_timestamp(now()) }}"
