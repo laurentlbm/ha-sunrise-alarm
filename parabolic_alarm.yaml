@@ -200,7 +200,7 @@ blueprint:
       default: []
       selector:
         action: {}
-  source_url: https://github.com/steku/ha_cercadian_alarm/blob/main/parabolic_alarm.yaml
+  source_url: https://github.com/laurentlbm/ha-sunrise-alarm/blob/main/parabolic_alarm.yaml
 trigger:
   - trigger: time
     at:
